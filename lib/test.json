@@ -1,0 +1,71 @@
+[
+	{
+		"color": "#11EE22",
+		"blocks": [
+			{
+				"type": "section",
+				"fields": [
+					{
+						"type": "mrkdwn",
+						"text": "*Repository*\n`vies`"
+					},
+					{
+						"type": "mrkdwn",
+						"text": "*Commit*\n<https://google.com|`2764gh`>"
+					}
+				]
+			},
+			{
+				"type": "section",
+				"fields": [
+					{
+						"type": "mrkdwn",
+						"text": "*Version*\n`1.0rc2`"
+					},
+					{
+						"type": "mrkdwn",
+						"text": "*Release Scope*\n`beta`"
+					}
+				]
+			},
+			{
+				"type": "section",
+				"fields": [
+					{
+						"type": "mrkdwn",
+						"text": "*Build Number*\n505"
+					},
+					{
+						"type": "mrkdwn",
+						"text": "*Development Build*\nfalse"
+					}
+				]
+			},
+			{
+				"type": "divider"
+			},
+			{
+				"type": "section",
+				"text": {
+					"type": "mrkdwn",
+					"text": "*Changelog*\n- fix"
+				}
+			},
+			{
+				"type": "section",
+				"text": {
+					
+				},
+				"accessory": {
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "View",
+						"emoji": true
+					},
+					"url": "https://google.com"
+				}
+			}
+		]
+	}
+]

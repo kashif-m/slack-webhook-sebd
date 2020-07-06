@@ -8,7 +8,7 @@
 	
 	const lib			= require('../lib/index.js')
 	let args 			= Array.from(process.argv.slice(2))
-	args 				= args.slice(2)
+	args 				= args.slice(3)
 
 	const buttonsIndex	= args.indexOf('--buttons')
 	let buttons			= buttonsIndex > 0 ? args.slice(buttonsIndex + 1) : false
@@ -22,9 +22,9 @@
 
 	try {
 		const payload	= await lib.getPayload(keyVal, buttons)
-		const response	= await lib.slackSend(payload)
-		console.log(`Response: ${response}`)
+		const response	= await lib.slackSend(payload, 'postMessage')
 	} catch(err) {
-		console.log(`Response: ${err}`)
+		console.log('Response: ')
+		console.log(err)
 	}
 })()
