@@ -1,22 +1,28 @@
 #!/usr/bin/env node
 
 // USAGE
-// $ slack-webhook-send webhook_url < success | fail | skip > header < list of heading, value >
-// eg: $ slack-webhook-send https://hooks.slack.com... success "Release Scope" beta Version 2.0rc1
+// $ slack-webhook-send < success | fail | skip > header < list of heading, value > --webhook <SLACK_WEBHOOK_URL>
+// eg: $ slack-webhook-send success "Release Scope" beta Version 2.0rc1 --webhook https://hooks.slack.com...
 
 (async () => {
 	
-	const lib				= require('../lib/index.js')
+	const lib			= require('../lib/index.js')
+	let args 			= Array.from(process.argv.slice(2))
+	args 				= args.slice(2)
 
-	const args 				= Array.from(process.argv.slice(2))
-	const index				= args.indexOf('--buttons')
-	const buttons			= args.slice(index + 1)
-	const keyVal			= args.slice(1, index)
+	const buttonsIndex	= args.indexOf('--buttons')
+	let buttons			= buttonsIndex > 0 ? args.slice(buttonsIndex + 1) : false
+	let temp			= buttons && buttons.filter(item => item.includes('--')) || []
+	let index			= buttons && buttons.indexOf(temp.length > 0 ? temp[0] : "") || -1
+	buttons				= index > 0 ? buttons.slice(0, index) : buttons
 
-	const payload = lib.getPayload(keyVal, buttons)
+	temp				= args.filter(item => item.includes('--'))
+	index		 		= args.indexOf(temp.length > 0 ? temp[0] : "" )
+	let keyVal			= index > 0 ? args.slice(0, index) : args
+
 	try {
-		const SLACK_WEBHOOK_URL = args[0]
-		const response = await lib.send(SLACK_WEBHOOK_URL, payload)
+		const payload	= await lib.getPayload(keyVal, buttons)
+		const response	= await lib.slackSend(payload)
 		console.log(`Response: ${response}`)
 	} catch(err) {
 		console.log(`Response: ${err}`)
