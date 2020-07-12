@@ -7,6 +7,7 @@
 (async () => {
 	
 	const lib			= require('../lib/index.js')
+	const util			= require('../lib/util.js')
 	let args 			= Array.from(process.argv.slice(2))
 	args 				= args.slice(3)
 
@@ -16,7 +17,7 @@
 	let index			= buttons && buttons.indexOf(temp.length > 0 ? temp[0] : "") || -1
 	buttons				= index > 0 ? buttons.slice(0, index) : buttons
 
-	temp				= args.filter(item => item.includes('--'))
+	temp				= args.filter(item => item.match(/^--/))
 	index		 		= args.indexOf(temp.length > 0 ? temp[0] : "" )
 	let keyVal			= index > 0 ? args.slice(0, index) : args
 
@@ -24,7 +25,7 @@
 		const payload	= await lib.getPayload(keyVal, buttons)
 		const response	= await lib.slackSend(payload, 'postMessage')
 	} catch(err) {
-		console.log('Response: ')
+		util.log("Message not sent.\nResponse:")
 		console.log(err)
 	}
 })()
