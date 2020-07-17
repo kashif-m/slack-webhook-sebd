@@ -3,7 +3,7 @@
     "slack-webhook-send": "./bin/slackSend.js"
   },
   "name": "slack-webhook-send",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Send Slack notification via Incoming Webhooks.",
   "main": "./lib/index.js",
   "scripts": {
