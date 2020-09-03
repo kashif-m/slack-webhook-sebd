@@ -6,26 +6,30 @@
 
 (async () => {
 	
-	const lib			= require('../lib/index.js')
-	const util			= require('../lib/util.js')
-	let args 			= Array.from(process.argv.slice(2))
-	args 				= args.slice(3)
-
-	const buttonsIndex	= args.indexOf('--buttons')
-	let buttons			= buttonsIndex > 0 ? args.slice(buttonsIndex + 1) : false
-	let temp			= buttons && buttons.filter(item => item.includes('--')) || []
-	let index			= buttons && buttons.indexOf(temp.length > 0 ? temp[0] : "") || -1
-	buttons				= index > 0 ? buttons.slice(0, index) : buttons
-
-	temp				= args.filter(item => item.match(/^--/))
-	index		 		= args.indexOf(temp.length > 0 ? temp[0] : "" )
-	let keyVal			= index > 0 ? args.slice(0, index) : args
+	const lib = require('../lib/index.js')
+	const {parseArguments, log}	= require('../lib/util.js')
 
 	try {
-		const payload	= await lib.getPayload(keyVal, buttons)
-		const response	= await lib.slackSend(payload, 'postMessage')
+		const args = process.argv.slice(2)
+		const { shortFields, longFields, buttons, reply, update, _delete } = parseArguments(args)
+
+		const payload	= await lib.getPayload(shortFields	? shortFields	: [],
+												                  longFields  ? longFields  : [],
+												                  buttons     ? buttons		  : [])
+		if(reply) payload.thread_ts = reply
+		if(update) payload.ts = update
+		if(_delete) payload.ts = _delete
+
+		const sendMethod = update ? 'chatUpdate'
+								: _delete ? 'deleteMessage'
+								: 'postMessage'
+
+		const response	= await lib.slackSend(payload, sendMethod)
+		log(`Timestamp: ${response.ts}`)
+
+		if(args.includes('--debug')) console.log(response)
 	} catch(err) {
-		util.log("Message not sent.\nResponse:")
+		log("Message not sent.\nResponse:")
 		console.log(err)
 	}
 })()
