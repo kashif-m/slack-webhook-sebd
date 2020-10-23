@@ -1,5 +1,7 @@
 # slack-webhook-send
 
+# This README is deprecated. Will update it as soon as I get time.
+
  **Global Usage**
  > Install using `npm i -g slack-webhook-send`
 ```bash
