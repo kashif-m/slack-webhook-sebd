@@ -1,5 +1,7 @@
 # slack-webhook-send
 
+Use v1.4.1 for CLI.
+Latest if using as a module.
 # This README is deprecated. Will update it as soon as I get time.
 
  **Global Usage**
