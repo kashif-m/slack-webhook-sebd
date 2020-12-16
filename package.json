@@ -3,8 +3,8 @@
     "slack-webhook-send": "./bin/slackSend.js"
   },
   "name": "slack-webhook-send",
-  "version": "1.4.5",
-  "description": "Send Slack notification via Incoming Webhooks.",
+  "version": "1.4.6",
+  "description": "Send Slack notifications via Slack APIs.",
   "main": "./lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

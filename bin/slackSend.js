@@ -15,7 +15,8 @@
     if (readOrWriteOperation == "read") {
       const payload = parseSlackReadArguments(args);
       const response = await lib.slackRead(payload, payload.readMethod);
-      console.log(response)
+      const util = require('util')
+      console.log(util.inspect(response, {showHidden: false, depth: null}));
 
     } else {
       const {
